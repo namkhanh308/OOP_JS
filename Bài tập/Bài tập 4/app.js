@@ -16,14 +16,15 @@ vatcan1.src = "chipu.png"
 const coin1 = new Image();
 coin1.src = "coin.jpg"
 
-class oto{
+class oto {
     anh;
     x;
     y;
     width;
     height;
     score;
-    constructor(anh,x,y,width,height) {
+
+    constructor(anh, x, y, width, height) {
         this.anh = anh;
         this.x = x;
         this.y = y;
@@ -31,8 +32,26 @@ class oto{
         this.height = height;
         this.score = 0;
     }
-    vehinh(){
-        ctx.drawImage(this.anh, this.x,this.y,this.width,this.height)
+
+    vehinh() {
+        ctx.drawImage(this.anh, this.x, this.y, this.width, this.height)
+    }
+
+    move() {
+        if (rightArrow && this.x + this.width < cvs.width) {
+            this.x += speed;
+        } else if (leftArrow && this.x > 0) {
+            this.x -= speed;
+        } else if (topArrow && this.y > 0) {
+            this.y -= speed;
+        } else if (belowArrow && this.y + this.height < cvs.height) {
+            this.y += speed;
+        } else if (checkspeed) {
+            speed += 1;
+            if (speed > 20) {
+                speed = 10;
+            }
+        }
     }
 }
 
@@ -77,26 +96,6 @@ function EventKeyboad(){
             checkspeed = false
         }
     })
-}
-function move(){
-    if(rightArrow && car.x + car.width < cvs.width){
-        car.x += speed;
-    }
-    else if(leftArrow && car.x > 0){
-        car.x -= speed;
-    }
-    else if(topArrow && car.y > 0){
-        car.y -= speed;
-    }
-    else if(belowArrow && car.y + car.height < cvs.height){
-        car.y += speed;
-    }
-    else if(checkspeed){
-        speed +=1;
-        if(speed>20){
-            speed=10;
-        }
-    }
 }
 
 //Luật chơi
@@ -150,7 +149,7 @@ function law(){
 }
 function start(){
     ctx.clearRect(0,0,cvs.width,cvs.height)
-    move();
+    car.move();
     draw();
     law();
     diem.innerText = `Bạn được ${car.score} điểm\n`;

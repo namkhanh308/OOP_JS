@@ -90,6 +90,6 @@ var hero = new Hero('pikachu.png', 20, 30, 200);
 function start(){
     hero.move();
     document.getElementById('game').innerHTML = hero.getHeroElement();
-    setTimeout(start, 100)
+    requestAnimationFrame(start)
 }
 start();
